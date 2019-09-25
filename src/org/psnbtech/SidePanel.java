@@ -124,8 +124,9 @@ public class SidePanel extends JPanel {
 		/*
 		 * Draw the "Stats" category.
 		 */
+		offset = STATS_INSET;
 		g.setFont(LARGE_FONT);
-		g.drawString("Estatísticas", SMALL_INSET, offset = STATS_INSET);
+		g.drawString("Estatísticas", SMALL_INSET, offset += TEXT_STRIDE);
 		g.setFont(SMALL_FONT);
 		g.drawString("Nível: " + tetris.getLevel(), LARGE_INSET, offset += TEXT_STRIDE);
 		g.drawString("Pontos: " + tetris.getScore(), LARGE_INSET, offset += TEXT_STRIDE);
@@ -190,8 +191,8 @@ public class SidePanel extends JPanel {
 		}
 		
 		g.setColor(DRAW_COLOR);
-		g.setFont(LARGE_FONT);
-		g.drawString("Hold: ", SMALL_INSET, 140);
+		g.setFont(SMALL_FONT);
+		g.drawString("Peça em hold: ", SMALL_INSET, 140);
 		g.drawRect(SQUARE_CENTER_X - SQUARE_SIZE, SQUARE_CENTER_Y - SQUARE_SIZE + 70, SQUARE_SIZE * 2, SQUARE_SIZE * 2);
 		
 		type = tetris.getHoldType();
