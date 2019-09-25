@@ -30,6 +30,10 @@ public class Tetris extends JFrame {
 	 */
 	private static final int TYPE_COUNT = TileType.values().length;
 	
+	/**
+	 * Number of cycles to wait after the tile hit the bottom, so
+	 * that we can move the piece after that.
+	 */
 	private static final int WAIT_CYCLES = 5;
 		
 	/**
@@ -115,8 +119,18 @@ public class Tetris extends JFrame {
 	 */
 	private float gameSpeed;
 	
+	/**
+	 * The cycle timer.
+	 */
 	private int waitingCycles = WAIT_CYCLES;
-		
+	
+	/**
+	 * The tile we are currently holding
+	 */
+	private TileType hold = null;
+	
+	private boolean didHold = false;
+	
 	/**
 	 * Creates a new Tetris instance. Sets up the window's properties,
 	 * and adds a controller listener.
@@ -242,6 +256,12 @@ public class Tetris extends JFrame {
 						resetGame();
 						isPaused = false;
 						logicTimer.setPaused(isPaused);
+					}
+					break;
+				
+				case KeyEvent.VK_H:
+					if (!didHold) {
+						holdPiece();
 					}
 					break;
 					
@@ -395,6 +415,7 @@ public class Tetris extends JFrame {
 				 */
 				spawnPiece();
 				waitingCycles = WAIT_CYCLES;
+				didHold = false;
 			}
 		}
 	}
@@ -449,7 +470,31 @@ public class Tetris extends JFrame {
 			if (score > 0) {
 				new Submit(score);
 			}
-		}		
+		}
+	}
+	
+	private void spawnPiece(TileType type) {
+		/*
+		 * Poll the last piece and reset our position and rotation to
+		 * their default variables, then pick the chosen piece to use.
+		 */
+		this.currentType = type;
+		this.currentCol = currentType.getSpawnColumn();
+		this.currentRow = currentType.getSpawnRow();
+		this.currentRotation = 0;
+		this.nextType = TileType.values()[random.nextInt(TYPE_COUNT)];
+		
+		/*
+		 * If the spawn point is invalid, we need to pause the game and flag that we've lost
+		 * because it means that the pieces on the board have gotten too high.
+		 */
+		if(!board.isValidAndEmpty(currentType, currentCol, currentRow, currentRotation)) {
+			this.isGameOver = true;
+			logicTimer.setPaused(true);
+			if (score > 0) {
+				new Submit(score);
+			}
+		}
 	}
 
 	/**
@@ -502,6 +547,18 @@ public class Tetris extends JFrame {
 			currentRotation = newRotation;
 			currentRow = newRow;
 			currentCol = newColumn;
+		}
+	}
+	
+	private void holdPiece() {
+		didHold = true;
+		if (hold == null) {
+			hold = currentType;
+			spawnPiece();
+		} else {
+			TileType tempCurrType = currentType;
+			spawnPiece(hold);
+			hold = tempCurrType;
 		}
 	}
 	
@@ -583,6 +640,10 @@ public class Tetris extends JFrame {
 	 */
 	public int getPieceRotation() {
 		return currentRotation;
+	}
+	
+	public TileType getHoldType() {
+		return hold;
 	}
 
 	/**

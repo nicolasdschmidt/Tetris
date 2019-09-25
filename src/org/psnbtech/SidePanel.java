@@ -188,6 +188,45 @@ public class SidePanel extends JPanel {
 				}
 			}
 		}
+		
+		g.setColor(DRAW_COLOR);
+		g.setFont(LARGE_FONT);
+		g.drawString("Hold: ", SMALL_INSET, 140);
+		g.drawRect(SQUARE_CENTER_X - SQUARE_SIZE, SQUARE_CENTER_Y - SQUARE_SIZE + 70, SQUARE_SIZE * 2, SQUARE_SIZE * 2);
+		
+		type = tetris.getHoldType();
+		if(!tetris.isGameOver() && type != null) {
+			/*
+			 * Get the size properties of the current piece.
+			 */
+			int cols = type.getCols();
+			int rows = type.getRows();
+			int dimension = type.getDimension();
+		
+			/*
+			 * Calculate the top left corner (origin) of the piece.
+			 */
+			int startX = (SQUARE_CENTER_X - (cols * TILE_SIZE / 2));
+			int startY = (SQUARE_CENTER_Y - (rows * TILE_SIZE / 2) + 70);
+		
+			/*
+			 * Get the insets for the preview. The default
+			 * rotation is used for the preview, so we just use 0.
+			 */
+			int top = type.getTopInset(0);
+			int left = type.getLeftInset(0);
+		
+			/*
+			 * Loop through the piece and draw it's tiles onto the preview.
+			 */
+			for(int row = 0; row < dimension; row++) {
+				for(int col = 0; col < dimension; col++) {
+					if(type.isTile(col, row, 0)) {
+						drawTile(type, startX + ((col - left) * TILE_SIZE), startY + ((row - top) * TILE_SIZE), g);
+					}
+				}
+			}
+		}
 	}
 	
 	/**
