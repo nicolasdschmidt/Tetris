@@ -29,8 +29,6 @@ public class Tetris extends JFrame {
 	 * The number of pieces that exist.
 	 */
 	private static final int TYPE_COUNT = TileType.values().length;
-	
-	private static final int WAIT_CYCLES = 5;
 		
 	/**
 	 * The BoardPanel instance.
@@ -114,8 +112,6 @@ public class Tetris extends JFrame {
 	 * The speed of the game.
 	 */
 	private float gameSpeed;
-	
-	private int waitingCycles = WAIT_CYCLES;
 		
 	/**
 	 * Creates a new Tetris instance. Sets up the window's properties,
@@ -169,7 +165,6 @@ public class Tetris extends JFrame {
 				 * position is valid. If so, we decrement the current column by 1.
 				 */
 				case KeyEvent.VK_A:
-				case KeyEvent.VK_LEFT:
 					if(!isPaused && board.isValidAndEmpty(currentType, currentCol - 1, currentRow, currentRotation)) {
 						currentCol--;
 					}
@@ -181,7 +176,6 @@ public class Tetris extends JFrame {
 				 * position is valid. If so, we increment the current column by 1.
 				 */
 				case KeyEvent.VK_D:
-				case KeyEvent.VK_RIGHT:
 					if(!isPaused && board.isValidAndEmpty(currentType, currentCol + 1, currentRow, currentRotation)) {
 						currentCol++;
 					}
@@ -194,7 +188,6 @@ public class Tetris extends JFrame {
 				 * rotation, the code for rotating the piece is handled in another method.
 				 */
 				case KeyEvent.VK_Q:
-				case KeyEvent.VK_W:
 					if(!isPaused) {
 						rotatePiece((currentRotation == 0) ? 3 : currentRotation - 1);
 					}
@@ -207,7 +200,6 @@ public class Tetris extends JFrame {
 				 * rotation, the code for rotating the piece is handled in another method.
 				 */
 				case KeyEvent.VK_E:
-				case KeyEvent.VK_SPACE:
 					if(!isPaused) {
 						rotatePiece((currentRotation == 3) ? 0 : currentRotation + 1);
 					}
@@ -237,19 +229,6 @@ public class Tetris extends JFrame {
 					}
 					break;
 				
-				case KeyEvent.VK_R:
-					if(isPaused) {
-						resetGame();
-						isPaused = false;
-						logicTimer.setPaused(isPaused);
-					}
-					break;
-					
-				case KeyEvent.VK_0:
-					score = 100;
-					isGameOver = true;
-					logicTimer.setPaused(true);
-					new Submit(score);
 				}
 			}
 			
@@ -268,8 +247,6 @@ public class Tetris extends JFrame {
 					logicTimer.reset();
 					break;
 				}
-				
-				
 				
 			}
 			
@@ -350,53 +327,48 @@ public class Tetris extends JFrame {
 			//Increment the current row if it's safe to do so.
 			currentRow++;
 		} else {
-			if (waitingCycles != 0)
-				waitingCycles--;
-			else {
-				/*
-				 * We've either reached the bottom of the board, or landed on another piece, so
-				 * we need to add the piece to the board.
-				 */
-				board.addPiece(currentType, currentCol, currentRow, currentRotation);
-				
-				/*
-				 * Check to see if adding the new piece resulted in any cleared lines. If so,
-				 * increase the player's score. (Up to 4 lines can be cleared in a single go;
-				 * [1 = 100pts, 2 = 200pts, 3 = 400pts, 4 = 800pts]).
-				 */
-				int cleared = board.checkLines();
-				if(cleared > 0) {
-					score += 50 << cleared;
-				}
-				
-				/*
-				 * Increase the speed slightly for the next piece and update the game's timer
-				 * to reflect the increase.
-				 */
-				gameSpeed += 0.035f;
-				logicTimer.setCyclesPerSecond(gameSpeed);
-				logicTimer.reset();
-				
-				/*
-				 * Set the drop cooldown so the next piece doesn't automatically come flying
-				 * in from the heavens immediately after this piece hits if we've not reacted
-				 * yet. (~0.5 second buffer).
-				 */
-				dropCooldown = 25;
-				
-				/*
-				 * Update the difficulty level. This has no effect on the game, and is only
-				 * used in the "Level" string in the SidePanel.
-				 */
-				level = (int)(gameSpeed * 1.70f);
-				
-				/*
-				 * Spawn a new piece to control.
-				 */
-				spawnPiece();
-				waitingCycles = WAIT_CYCLES;
+			/*
+			 * We've either reached the bottom of the board, or landed on another piece, so
+			 * we need to add the piece to the board.
+			 */
+			board.addPiece(currentType, currentCol, currentRow, currentRotation);
+			
+			/*
+			 * Check to see if adding the new piece resulted in any cleared lines. If so,
+			 * increase the player's score. (Up to 4 lines can be cleared in a single go;
+			 * [1 = 100pts, 2 = 200pts, 3 = 400pts, 4 = 800pts]).
+			 */
+			int cleared = board.checkLines();
+			if(cleared > 0) {
+				score += 50 << cleared;
 			}
-		}
+			
+			/*
+			 * Increase the speed slightly for the next piece and update the game's timer
+			 * to reflect the increase.
+			 */
+			gameSpeed += 0.035f;
+			logicTimer.setCyclesPerSecond(gameSpeed);
+			logicTimer.reset();
+			
+			/*
+			 * Set the drop cooldown so the next piece doesn't automatically come flying
+			 * in from the heavens immediately after this piece hits if we've not reacted
+			 * yet. (~0.5 second buffer).
+			 */
+			dropCooldown = 25;
+			
+			/*
+			 * Update the difficulty level. This has no effect on the game, and is only
+			 * used in the "Level" string in the SidePanel.
+			 */
+			level = (int)(gameSpeed * 1.70f);
+			
+			/*
+			 * Spawn a new piece to control.
+			 */
+			spawnPiece();
+		}		
 	}
 	
 	/**
@@ -446,9 +418,6 @@ public class Tetris extends JFrame {
 		if(!board.isValidAndEmpty(currentType, currentCol, currentRow, currentRotation)) {
 			this.isGameOver = true;
 			logicTimer.setPaused(true);
-			if (score > 0) {
-				new Submit(score);
-			}
 		}		
 	}
 

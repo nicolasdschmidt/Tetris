@@ -125,29 +125,29 @@ public class SidePanel extends JPanel {
 		 * Draw the "Stats" category.
 		 */
 		g.setFont(LARGE_FONT);
-		g.drawString("Estatísticas", SMALL_INSET, offset = STATS_INSET);
+		g.drawString("Stats", SMALL_INSET, offset = STATS_INSET);
 		g.setFont(SMALL_FONT);
-		g.drawString("Nível: " + tetris.getLevel(), LARGE_INSET, offset += TEXT_STRIDE);
-		g.drawString("Pontos: " + tetris.getScore(), LARGE_INSET, offset += TEXT_STRIDE);
+		g.drawString("Level: " + tetris.getLevel(), LARGE_INSET, offset += TEXT_STRIDE);
+		g.drawString("Score: " + tetris.getScore(), LARGE_INSET, offset += TEXT_STRIDE);
 		
 		/*
 		 * Draw the "Controls" category.
 		 */
 		g.setFont(LARGE_FONT);
-		g.drawString("Controles", SMALL_INSET, offset = CONTROLS_INSET);
+		g.drawString("Controls", SMALL_INSET, offset = CONTROLS_INSET);
 		g.setFont(SMALL_FONT);
-		g.drawString("A / < - Esquerda", LARGE_INSET, offset += TEXT_STRIDE);
-		g.drawString("D / > - Direita", LARGE_INSET, offset += TEXT_STRIDE);
-		g.drawString("Q / W - Girar Anti-horário", LARGE_INSET, offset += TEXT_STRIDE);
-		g.drawString("E / Espaço - Girar Horário", LARGE_INSET, offset += TEXT_STRIDE);
-		g.drawString("S - Cair", LARGE_INSET, offset += TEXT_STRIDE);
-		g.drawString("P - Pausar Jogo", LARGE_INSET, offset += TEXT_STRIDE);
+		g.drawString("A - Move Left", LARGE_INSET, offset += TEXT_STRIDE);
+		g.drawString("D - Move Right", LARGE_INSET, offset += TEXT_STRIDE);
+		g.drawString("Q - Rotate Anticlockwise", LARGE_INSET, offset += TEXT_STRIDE);
+		g.drawString("E - Rotate Clockwise", LARGE_INSET, offset += TEXT_STRIDE);
+		g.drawString("S - Drop", LARGE_INSET, offset += TEXT_STRIDE);
+		g.drawString("P - Pause Game", LARGE_INSET, offset += TEXT_STRIDE);
 		
 		/*
 		 * Draw the next piece preview box.
 		 */
 		g.setFont(LARGE_FONT);
-		g.drawString("Próx. peça:", SMALL_INSET, 70);
+		g.drawString("Next Piece:", SMALL_INSET, 70);
 		g.drawRect(SQUARE_CENTER_X - SQUARE_SIZE, SQUARE_CENTER_Y - SQUARE_SIZE, SQUARE_SIZE * 2, SQUARE_SIZE * 2);
 		
 		/*
@@ -207,11 +207,9 @@ public class SidePanel extends JPanel {
 		/*
 		 * Fill the bottom and right edges of the tile with the dark shading color.
 		 */
-		/*
 		g.setColor(type.getDarkColor());
 		g.fillRect(x, y + TILE_SIZE - SHADE_WIDTH, TILE_SIZE, SHADE_WIDTH);
 		g.fillRect(x + TILE_SIZE - SHADE_WIDTH, y, SHADE_WIDTH, TILE_SIZE);
-		*/
 		
 		/*
 		 * Fill the top and left edges with the light shading. We draw a single line

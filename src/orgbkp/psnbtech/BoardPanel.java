@@ -106,8 +106,6 @@ public class BoardPanel extends JPanel {
 	 * The tiles that make up the board.
 	 */
 	private TileType[][] tiles;
-	
-	private boolean shownGameOver = false;
 		
 	/**
 	 * Crates a new GameBoard instance.
@@ -291,11 +289,8 @@ public class BoardPanel extends JPanel {
 		if(tetris.isPaused()) {
 			g.setFont(LARGE_FONT);
 			g.setColor(Color.WHITE);
-			String msg = "PAUSADO";
+			String msg = "PAUSED";
 			g.drawString(msg, CENTER_X - g.getFontMetrics().stringWidth(msg) / 2, CENTER_Y);
-			g.setFont(SMALL_FONT);
-			msg = "[P] Continuar - [R] Reiniciar";
-			g.drawString(msg, CENTER_X - g.getFontMetrics().stringWidth(msg) / 2, 300);
 		} else if(tetris.isNewGame() || tetris.isGameOver()) {
 			g.setFont(LARGE_FONT);
 			g.setColor(Color.WHITE);
@@ -308,11 +303,8 @@ public class BoardPanel extends JPanel {
 			String msg = tetris.isNewGame() ? "TETRIS" : "GAME OVER";
 			g.drawString(msg, CENTER_X - g.getFontMetrics().stringWidth(msg) / 2, 150);
 			g.setFont(SMALL_FONT);
-			msg = "Aperte [Enter] para jogar" + (tetris.isNewGame() ? "" : " novamente");
+			msg = "Press Enter to Play" + (tetris.isNewGame() ? "" : " Again");
 			g.drawString(msg, CENTER_X - g.getFontMetrics().stringWidth(msg) / 2, 300);
-			if (tetris.isGameOver() && !shownGameOver) {
-				shownGameOver = true;
-			}
 		} else {
 			
 			/*
@@ -426,7 +418,6 @@ public class BoardPanel extends JPanel {
 		/*
 		 * Fill the bottom and right edges of the tile with the dark shading color.
 		 */
-		
 		g.setColor(dark);
 		g.fillRect(x, y + TILE_SIZE - SHADE_WIDTH, TILE_SIZE, SHADE_WIDTH);
 		g.fillRect(x + TILE_SIZE - SHADE_WIDTH, y, SHADE_WIDTH, TILE_SIZE);
@@ -436,11 +427,11 @@ public class BoardPanel extends JPanel {
 		 * for each row or column rather than a rectangle so that we can draw a nice
 		 * looking diagonal where the light and dark shading meet.
 		 */
-		
 		g.setColor(light);
 		for(int i = 0; i < SHADE_WIDTH; i++) {
 			g.drawLine(x, y + i, x + TILE_SIZE - i - 1, y + i);
 			g.drawLine(x + i, y, x + i, y + TILE_SIZE - i - 1);
 		}
 	}
+
 }
