@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.util.Queue;
 
 import javax.swing.JPanel;
 
@@ -96,7 +97,7 @@ public class BoardPanel extends JPanel {
 	 * The smaller font to display.
 	 */
 	private static final Font SMALL_FONT = new Font("Tahoma", Font.BOLD, 12);
-	
+ 	
 	/**
 	 * The Tetris instance.
 	 */

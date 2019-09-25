@@ -259,6 +259,7 @@ public class Tetris extends JFrame {
 					}
 					break;
 				
+				case KeyEvent.VK_F:
 				case KeyEvent.VK_H:
 					if (!didHold) {
 						holdPiece();
@@ -270,6 +271,7 @@ public class Tetris extends JFrame {
 					isGameOver = true;
 					logicTimer.setPaused(true);
 					new Submit(score);
+					break;
 				}
 			}
 			
@@ -645,7 +647,7 @@ public class Tetris extends JFrame {
 	public TileType getHoldType() {
 		return hold;
 	}
-
+	
 	/**
 	 * Entry-point of the game. Responsible for creating and starting a new
 	 * game instance.

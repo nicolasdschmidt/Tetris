@@ -141,6 +141,7 @@ public class SidePanel extends JPanel {
 		g.drawString("D / > - Direita", LARGE_INSET, offset += TEXT_STRIDE);
 		g.drawString("Q / W - Girar Anti-horário", LARGE_INSET, offset += TEXT_STRIDE);
 		g.drawString("E / Espaço - Girar Horário", LARGE_INSET, offset += TEXT_STRIDE);
+		g.drawString("H / F - Segurar (Hold)", LARGE_INSET, offset += TEXT_STRIDE);
 		g.drawString("S - Cair", LARGE_INSET, offset += TEXT_STRIDE);
 		g.drawString("P - Pausar Jogo", LARGE_INSET, offset += TEXT_STRIDE);
 		
@@ -247,11 +248,11 @@ public class SidePanel extends JPanel {
 		/*
 		 * Fill the bottom and right edges of the tile with the dark shading color.
 		 */
-		/*
+		
 		g.setColor(type.getDarkColor());
 		g.fillRect(x, y + TILE_SIZE - SHADE_WIDTH, TILE_SIZE, SHADE_WIDTH);
 		g.fillRect(x + TILE_SIZE - SHADE_WIDTH, y, SHADE_WIDTH, TILE_SIZE);
-		*/
+		
 		
 		/*
 		 * Fill the top and left edges with the light shading. We draw a single line
