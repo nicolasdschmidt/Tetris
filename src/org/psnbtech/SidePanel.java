@@ -64,7 +64,7 @@ public class SidePanel extends JPanel {
 	/**
 	 * The y coordinate of the stats category.
 	 */
-	private static final int STATS_INSET = 175;
+	private static final int STATS_INSET = 180;
 	
 	/**
 	 * The y coordinate of the controls category.
@@ -74,7 +74,7 @@ public class SidePanel extends JPanel {
 	/**
 	 * The number of pixels to offset between each string.
 	 */
-	private static final int TEXT_STRIDE = 25;
+	private static final int TEXT_STRIDE = 20;
 	
 	/**
 	 * The small font.
@@ -139,10 +139,11 @@ public class SidePanel extends JPanel {
 		g.setFont(SMALL_FONT);
 		g.drawString("A / < - Esquerda", LARGE_INSET, offset += TEXT_STRIDE);
 		g.drawString("D / > - Direita", LARGE_INSET, offset += TEXT_STRIDE);
-		g.drawString("Q / W - Girar Anti-horário", LARGE_INSET, offset += TEXT_STRIDE);
+		g.drawString("Q - Girar Anti-horário", LARGE_INSET, offset += TEXT_STRIDE);
 		g.drawString("E / Espaço - Girar Horário", LARGE_INSET, offset += TEXT_STRIDE);
 		g.drawString("H / F - Segurar (Hold)", LARGE_INSET, offset += TEXT_STRIDE);
 		g.drawString("S - Cair", LARGE_INSET, offset += TEXT_STRIDE);
+		g.drawString("W - Cair tudo", LARGE_INSET, offset += TEXT_STRIDE);
 		g.drawString("P - Pausar Jogo", LARGE_INSET, offset += TEXT_STRIDE);
 		
 		/*
