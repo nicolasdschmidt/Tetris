@@ -208,7 +208,6 @@ public class Tetris extends JFrame {
 				 * rotation, the code for rotating the piece is handled in another method.
 				 */
 				case KeyEvent.VK_Q:
-				case KeyEvent.VK_W:
 					if(!isPaused) {
 						rotatePiece((currentRotation == 0) ? 3 : currentRotation - 1);
 					}
@@ -265,13 +264,43 @@ public class Tetris extends JFrame {
 						holdPiece();
 					}
 					break;
+				
+				case KeyEvent.VK_W:
+					for(int lowest = currentRow; lowest < BoardPanel.ROW_COUNT; lowest++) {
+						//If no collision is detected, try the next row.
+						if(board.isValidAndEmpty(currentType, currentCol, lowest, currentRotation)) {					
+							continue;
+						}
+						
+						lowest--;
+						
+						board.addPiece(currentType, currentCol, lowest, currentRotation);
+						break;
+					}
+					int cleared = board.checkLines();
+					if(cleared > 0) {
+						score += 50 << cleared;
+					}
 					
-				case KeyEvent.VK_0:
+					gameSpeed += 0.035f;
+					logicTimer.setCyclesPerSecond(gameSpeed);
+					logicTimer.reset();
+					
+					dropCooldown = 25;
+					
+					level = (int)(gameSpeed * 1.70f);
+
+					spawnPiece();
+					waitingCycles = WAIT_CYCLES;
+					didHold = false;
+					break;
+					
+				/*case KeyEvent.VK_0:
 					score = 100;
 					isGameOver = true;
 					logicTimer.setPaused(true);
 					new Submit(score);
-					break;
+					break;*/
 				}
 			}
 			
