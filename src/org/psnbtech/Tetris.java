@@ -172,6 +172,7 @@ public class Tetris extends JFrame {
 				 * logic timer to run at a speed of 25 cycles per second.
 				 */
 				case KeyEvent.VK_S:
+				case KeyEvent.VK_DOWN:
 					if(!isPaused && dropCooldown == 0) {
 						logicTimer.setCyclesPerSecond(25.0f);
 					}
@@ -266,6 +267,7 @@ public class Tetris extends JFrame {
 					break;
 				
 				case KeyEvent.VK_W:
+				case KeyEvent.VK_UP:
 					for(int lowest = currentRow; lowest < BoardPanel.ROW_COUNT; lowest++) {
 						//If no collision is detected, try the next row.
 						if(board.isValidAndEmpty(currentType, currentCol, lowest, currentRotation)) {					
@@ -315,6 +317,7 @@ public class Tetris extends JFrame {
 				 * any cycles that might still be elapsed.
 				 */
 				case KeyEvent.VK_S:
+				case KeyEvent.VK_DOWN:
 					logicTimer.setCyclesPerSecond(gameSpeed);
 					logicTimer.reset();
 					break;
