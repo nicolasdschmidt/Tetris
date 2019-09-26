@@ -2,7 +2,6 @@ package bd.daos;
 
 import java.sql.*;
 import bd.*;
-import bd.core.*;
 import bd.dbos.*;
 
 public class Pontuacoes

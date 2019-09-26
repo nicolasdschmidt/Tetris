@@ -13,13 +13,9 @@ public class ButtonPanel extends JPanel {
 
 	private static final long serialVersionUID = 3034279817252025506L;
 	
-	private Confirmation confirmation;
-	
 	public ButtonPanel(Confirmation confirmation) {
 		setBackground(Color.BLACK);
 		setLayout(new BorderLayout());
-		
-		this.confirmation = confirmation;
 		
 		Button btnSim = new Button();
 		btnSim.setLabel("Sim");
