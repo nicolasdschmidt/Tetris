@@ -471,8 +471,10 @@ public class Tetris extends JFrame {
 		this.score = 0;
 		this.gameSpeed = 1.0f;
 		this.nextType = TileType.values()[random.nextInt(TYPE_COUNT)];
+		this.hold = null;
+		this.didHold = false;
 		this.isNewGame = false;
-		this.isGameOver = false;		
+		this.isGameOver = false;
 		board.clear();
 		logicTimer.reset();
 		logicTimer.setCyclesPerSecond(gameSpeed);
@@ -516,7 +518,6 @@ public class Tetris extends JFrame {
 		this.currentCol = currentType.getSpawnColumn();
 		this.currentRow = currentType.getSpawnRow();
 		this.currentRotation = 0;
-		this.nextType = TileType.values()[random.nextInt(TYPE_COUNT)];
 		
 		/*
 		 * If the spawn point is invalid, we need to pause the game and flag that we've lost
